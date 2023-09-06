@@ -10,14 +10,11 @@ void setup() {
 }
 
 void loop() {
-    String comando = Serial.readString();
-    comando.trim();
+    String comando = Serial.readStringUntil('\n');
 
     if (comando == "gira") {
-        servo1.write(0);
-        delay(1000);
         servo1.write(180);
-        delay(1000);
+        delay(2000);
         servo1.write(0);
     }
 }
