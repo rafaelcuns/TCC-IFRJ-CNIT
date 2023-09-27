@@ -6,7 +6,7 @@
     height: 497px;
     flex-shrink: 0;
     fill: #128891;
-    margin-top: 30px;
+    margin-top: 80px;
 }
 #titulo{
     color: #FFF;
@@ -15,7 +15,7 @@
     font-style: normal;
     font-weight: 700;
     line-height: normal;
-    margin-top: 0px;
+    margin-top: 50px;
     text-align: center;
     margin-bottom: 10px;
 }
@@ -44,16 +44,19 @@
     display: flex;
 }
 #logotail{
-    margin-left:15%;
-    margin-right:20%;
+    margin-left:146px;
+    margin-right:146px;
     height: 139.5px;
     width: 139.5px;
 }
 #riw{
     width: 152.5px;
     height: 61px;
+    margin-right: 141px;
 }
 #logoif{
     height: 168.5px;
     width: 168.5px;
+    margin-left: 570px;
+    margin-top: 40px;
 }
