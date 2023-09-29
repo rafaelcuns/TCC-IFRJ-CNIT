@@ -457,6 +457,7 @@
         <img id="riw" src="riw.png" alt="Logo Rio Innovation Week">
     </div>
     <script>
+        let jogo = 0
         const PAGINAS = ["#inicio", "#letra", "#exp", "#jogo"]
         let textosResposta = document.querySelectorAll("p.resposta")
         
@@ -480,6 +481,9 @@
             document.querySelector("#logotail").style.marginTop = "56.55px"
             document.querySelector("#riw").style.marginTop = "56.55px"
             document.querySelector("#recuo").style.height = "420px"
+            if(jogo == 1){
+                document.querySelector("#cameraImg").src = "pedra.png"    
+            }
         }
         
         function guia(op) {
@@ -501,6 +505,7 @@
 
             }
             if (op == "#jogo") {
+                console.log(jogo)
                 //comentado enquanto não tem camera
                 //document.querySelector("#cameraImg").src = "http://IP_PYTHON:8000/streamPython" 
                 document.querySelector("#recuo").style.height = "500px"
@@ -520,13 +525,30 @@
                 document.querySelector("#riw").style.marginTop = "0px"
                 document.querySelector("#recuo").style.height = "580px"
 
-                setTimeout(()=>{
-                    document.querySelector('#cameraImg').src="PAPEL.png"
-                    setTimeout(()=>
-                    document.querySelector('#cameraImg').src="TESOURA.png"),1000)
-
+                if(jogo == 0){
+                    setTimeout(()=>{
+                        document.querySelector('#cameraImg').src="PAPEL.png"
+                        setTimeout(()=>{
+                            document.querySelector('#cameraImg').src="TESOURA.png"
+                            setTimeout(()=>{
+                                document.querySelector("#cameraImg").src = "http://localhost/camera"
+                            },1000)
+                        },1000)
+                    },1000)
+                    jogo = 1
+                }else{
+                    console.log("Segunda vez")
+                    setTimeout(()=>{
+                        document.querySelector('#cameraImg').src="PAPEL.png"
+                        setTimeout(()=>{
+                            document.querySelector('#cameraImg').src="TESOURA.png"
+                            setTimeout(()=>{
+                                document.querySelector("#cameraImg").src = "http://localhost/camera"
+                            },1000)
+                        },1000)
+                    },1000)
                 }
-                , 000)
+
 
 
             } else {
