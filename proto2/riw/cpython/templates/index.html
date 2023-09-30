@@ -434,15 +434,15 @@
                     <div class="column" id="jokenpo">
                         <div class="ppt" style="margin-top: 15px;">
                             <p style="margin-top: 1px; padding-left: 2px;padding-right: 2px;" >SUA JOGADA</p>
-                            <p style="margin-bottom: 0px; color:#128891">TESOURA</p>
+                            <p class="status" style="margin-bottom: 0px; color:#128891">TESOURA</p>
                         </div>
                         <div class="ppt">
                             <p style="margin-top: 1px; padding-left: 10px;padding-right: 10px;">JOGADA DA MÃO</p>
-                            <p style="margin-bottom: 0px; color:#128891"">PAPEL</p>
+                            <p class="status" style="margin-bottom: 0px; color:#128891">PAPEL</p>
                         </div>
                         <div class="ppt">
                             <p style="margin-top: 1px">RESULTADO</p>
-                            <p style="margin-bottom: 0px; color:#128891"">VITÓRIA</p>
+                            <p class="status" style="margin-bottom: 0px; color:#128891">VITÓRIA</p>
                         </div>
                     </div>
                 </div>
@@ -531,7 +531,11 @@
                                 setInterval(() => {
                                     if (document.querySelector("#cameraImg").src == "http://localhost/camera") {
                                         fetch("/jogoStatus").then(resposta => resposta.text()).then(dados => {
-                                            console.log(dados); // Implementar tratamento para cada informação recebida
+                                            console.log(dados)
+                                            textoStatus = document.querySelectorAll(".status")
+                                            textoStatus[0].innerHTML = Array.from(dados.split(","))[0]
+                                            textoStatus[1].innerHTML = Array.from(dados.split(","))[1]
+                                            textoStatus[2].innerHTML = Array.from(dados.split(","))[2]
                                         })
                                     }
                                 }, 1000)
@@ -550,7 +554,11 @@
                                 setInterval(() => {
                                     if (document.querySelector("#cameraImg").src == "http://localhost/camera") {
                                         fetch("/jogoStatus").then(resposta => resposta.text()).then(dados => {
-                                            console.log(dados); // Implementar tratamento para cada informação recebida
+                                            console.log(dados)
+                                            textoStatus = document.querySelectorAll(".status")
+                                            textoStatus[0].innerHTML = Array.from(dados.split(","))[0]
+                                            textoStatus[1].innerHTML = Array.from(dados.split(","))[1]
+                                            textoStatus[2].innerHTML = Array.from(dados.split(","))[2]
                                         })
                                     }
                                 }, 1000)

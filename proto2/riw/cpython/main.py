@@ -6,6 +6,7 @@ import cv2
 from cvzone.HandTrackingModule import HandDetector
 from cvzone.ClassificationModule import Classifier
 from time import sleep
+import random
 
 # laires = serial.Serial('COM6', 115200)
 
@@ -13,6 +14,7 @@ labels = ["Pedra", "Papel", "Tesoura"]
 offset = 20
 imgSize = 300
 status = ""
+jogo_ocorrido = False
 
 conn = cv2.VideoCapture(0)
 if not conn.isOpened():
@@ -31,7 +33,8 @@ def handleRoot():
 @server.route('/camera')
 def streamPython():
     def stream():
-        global status
+        global status, jogo_ocorrido
+        jogo_ocorrido = False
         while True:
             retorno, img = conn.read()
             img = cv2.flip(img, 1)
@@ -59,8 +62,20 @@ def streamPython():
                     prediction, index = classifier.getPrediction(imgWhite, draw=False)
                     print(np.max(prediction), index) # Mostra o index da classe de maior probabilidade
                     if np.max(prediction) > 0.8:
-                        status = labels[index] # Falta mostrar jogada do robo e resultado do jogo. Em uma unica string separados por virgula
-                        # laires.write(b'' + labels[index])
+                        if not jogo_ocorrido:
+                            jogadaTail = random.randint(0, 2)
+
+                            if labels[index] == labels[jogadaTail]:
+                                resultado = "Empate"
+                            elif (labels[index] == "Pedra" and labels[jogadaTail] == "Tesoura") or (labels[index] == "Tesoura" and labels[jogadaTail] == "Papel") or (labels[index] == "Papel" and labels[jogadaTail] == "Pedra"):
+                                resultado = "Jogador"
+                            else:
+                                resultado = "Maquina"
+
+                            status = labels[index] + "," + labels[jogadaTail] + "," +  resultado
+                            # laires.write(b'' + labels[jogadaTail])
+
+                            jogo_ocorrido = True
 
                 else:
                     k = imgSize / w
@@ -72,8 +87,20 @@ def streamPython():
                     prediction, index = classifier.getPrediction(imgWhite, draw=False)
                     print(np.max(prediction), index) # Mostra o index da classe de maior probabilidade
                     if np.max(prediction) > 0.8:
-                        status = labels[index] # Falta mostrar jogada do robo e resultado do jogo. Em uma unica string separados por virgula
-                        # laires.write(b'' + labels[index])
+                        if not jogo_ocorrido:
+                            jogadaTail = random.randint(0, 2)
+
+                            if labels[index] == labels[jogadaTail]:
+                                resultado = "Empate"
+                            elif (labels[index] == "Pedra" and labels[jogadaTail] == "Tesoura") or (labels[index] == "Tesoura" and labels[jogadaTail] == "Papel") or (labels[index] == "Papel" and labels[jogadaTail] == "Pedra"):
+                                resultado = "Jogador"
+                            else:
+                                resultado = "Maquina"
+
+                            status = labels[index] + "," + labels[jogadaTail] + "," +  resultado
+                            # laires.write(b'' + labels[jogadaTail])
+
+                            jogo_ocorrido = True
 
             imgBytes = cv2.imencode('.jpg', imgOutput)[1].tobytes()
 
@@ -88,8 +115,9 @@ def comandoPath(path):
     return Response((yield(b'Recebido')), mimetype='text/html')
 
 @server.route("/jogoStatus")
-def status():
-    return Response((yield(b'' + status.encode())), mimetype='text/html')
+def jogoStatus():
+    if jogo_ocorrido:
+        return Response((yield(b'' + status.encode())), mimetype='text/html')
 
 
 server.run(host='localhost', port=80)
