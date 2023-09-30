@@ -506,13 +506,10 @@
 
             }
             if (op == "#jogo") {
-                console.log(jogo)
                 document.querySelector("#recuo").style.height = "500px"
                 document.querySelector("#logoif").style.marginTop = "0px"
                 document.querySelector("#logotail").style.marginTop = "0px"
                 document.querySelector("#riw").style.marginTop = "0px"
-                console.log(document.getElementById("ladod"))
-                console.log(document.getElementById("ladoe"))
                 document.querySelector("#ladoe").src = "{{url_for('static', filename='images/ladod2.svg')}}"
                 document.querySelector("#ladoe").style.height = "603px"
                 document.querySelector("#ladoe").style.marginTop = "63px"
@@ -531,6 +528,13 @@
                             document.querySelector('#cameraImg').src="{{url_for('static', filename='images/TESOURA.png')}}"
                             setTimeout(()=>{
                                 document.querySelector("#cameraImg").src = "http://localhost/camera"
+                                setInterval(() => {
+                                    if (document.querySelector("#cameraImg").src == "http://localhost/camera") {
+                                        fetch("/jogoStatus").then(resposta => resposta.text()).then(dados => {
+                                            console.log(dados); // Implementar tratamento para cada informação recebida
+                                        })
+                                    }
+                                }, 1000)
                             },1000)
                         },1000)
                     },1000)
@@ -543,6 +547,13 @@
                             document.querySelector('#cameraImg').src="{{url_for('static', filename='images/TESOURA.png')}}"
                             setTimeout(()=>{
                                 document.querySelector("#cameraImg").src = "http://localhost/camera"
+                                setInterval(() => {
+                                    if (document.querySelector("#cameraImg").src == "http://localhost/camera") {
+                                        fetch("/jogoStatus").then(resposta => resposta.text()).then(dados => {
+                                            console.log(dados); // Implementar tratamento para cada informação recebida
+                                        })
+                                    }
+                                }, 1000)
                             },1000)
                         },1000)
                     },1000)
@@ -553,8 +564,6 @@
             }
 
             if (op == "#letra"){
-                console.log(document.getElementById("ladod"))
-                console.log(document.getElementById("ladoe"))
                 document.querySelector("#ladoe").src = "{{url_for('static', filename='images/ladod2.svg')}}"
                 document.querySelector("#ladoe").style.height = "603px"
                 document.querySelector("#ladoe").style.marginTop = "63px"

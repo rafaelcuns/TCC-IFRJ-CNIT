@@ -12,6 +12,7 @@ from time import sleep
 labels = ["Pedra", "Papel", "Tesoura"]
 offset = 20
 imgSize = 300
+status = ""
 
 conn = cv2.VideoCapture(0)
 if not conn.isOpened():
@@ -30,8 +31,9 @@ def handleRoot():
 @server.route('/camera')
 def streamPython():
     def stream():
+        global status
         while True:
-            status, img = conn.read()
+            retorno, img = conn.read()
             img = cv2.flip(img, 1)
 
             imgOutput = img.copy()
@@ -55,8 +57,10 @@ def streamPython():
                     wGap = math.ceil((imgSize - wCal) / 2)
                     imgWhite[:, wGap:wCal + wGap] = imgResize
                     prediction, index = classifier.getPrediction(imgWhite, draw=False)
-                    print(np.max(prediction), index) # Mostra a classe de maior problabilidade
-                    # laires.write(b'' + labels[index]) # Somente se passar condicional de alta probabilidade
+                    print(np.max(prediction), index) # Mostra o index da classe de maior probabilidade
+                    if np.max(prediction) > 0.8:
+                        status = labels[index] # Falta mostrar jogada do robo e resultado do jogo. Em uma unica string separados por virgula
+                        # laires.write(b'' + labels[index])
 
                 else:
                     k = imgSize / w
@@ -66,8 +70,10 @@ def streamPython():
                     hGap = math.ceil((imgSize - hCal) / 2)
                     imgWhite[hGap:hCal + hGap, :] = imgResize
                     prediction, index = classifier.getPrediction(imgWhite, draw=False)
-                    print(np.max(prediction), index) # Mostra a classe de maior problabilidade
-                    # laires.write(b'' + labels[index]) # Somente se passar condicional de alta probabilidade
+                    print(np.max(prediction), index) # Mostra o index da classe de maior probabilidade
+                    if np.max(prediction) > 0.8:
+                        status = labels[index] # Falta mostrar jogada do robo e resultado do jogo. Em uma unica string separados por virgula
+                        # laires.write(b'' + labels[index])
 
             imgBytes = cv2.imencode('.jpg', imgOutput)[1].tobytes()
 
@@ -81,6 +87,9 @@ def comandoPath(path):
     sleep(2)
     return Response((yield(b'Recebido')), mimetype='text/html')
 
+@server.route("/jogoStatus")
+def status():
+    return Response((yield(b'' + status.encode())), mimetype='text/html')
 
 
 server.run(host='localhost', port=80)
