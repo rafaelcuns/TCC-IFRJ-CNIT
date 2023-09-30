@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TAIL</title>
+    <link rel="shortcut icon" href="{{url_for('static', filename='images/taillogow 1.png')}}" type="image/x-icon">
     <style>
         *{
         background: #121E1F;
@@ -206,6 +207,9 @@
             text-align: center;
             justify-content: center;
         }
+        button {
+            cursor: pointer;
+        }
         #botaotail{
             border-radius: 3px;
             background: none;
@@ -352,7 +356,7 @@
 </head>
 <body>
     <div class="row" id="recuo">
-        <img src="ladod.svg" alt="listra lateral esquerda" class="ladinho" id="ladod"> </img>
+        <img src="{{url_for('static', filename='images/ladod.svg')}}" alt="listra lateral esquerda" class="ladinho" id="ladod"> </img>
         <div class="column">
             <p id="titulo">Mão Robótica</p>
             <div id="inicio">
@@ -374,34 +378,34 @@
                 <div class="column container">
                     <main class="column">
                         <section class="row">
-                            <button>A</button>
-                            <button>B</button>
-                            <button>C</button>
-                            <button style="margin-right: 8px">D</button>
+                            <button class="botao">A</button>
+                            <button class="botao">B</button>
+                            <button class="botao">C</button>
+                            <button class="botao" style="margin-right: 8px">D</button>
                         </section>
                         <section class="row">
-                            <button>E</button>
-                            <button>F</button>
-                            <button>G</button>
-                            <button style="margin-right: 8px">I</button>
+                            <button class="botao">E</button>
+                            <button class="botao">F</button>
+                            <button class="botao">G</button>
+                            <button class="botao" style="margin-right: 8px">I</button>
                         </section>
                         <section class="row"> 
-                            <button>L</button>
-                            <button>M</button>
-                            <button>N</button>
-                            <button style="margin-right: 8px">O</button>
+                            <button class="botao">L</button>
+                            <button class="botao">M</button>
+                            <button class="botao">N</button>
+                            <button class="botao" style="margin-right: 8px">O</button>
                         </section>
                         <section class="row">
-                            <button>P</button>
-                            <button>Q</button>
-                            <button>R</button>
-                            <button style="margin-right: 8px">S</button>
+                            <button class="botao">P</button>
+                            <button class="botao">Q</button>
+                            <button class="botao">R</button>
+                            <button class="botao" style="margin-right: 8px">S</button>
                         </section>
                         <section class="row">
-                            <button>T</button>
-                            <button>V</button>
-                            <button>W</button>
-                            <button style="margin-right: 8px">Y</button>
+                            <button class="botao">T</button>
+                            <button class="botao">V</button>
+                            <button class="botao">W</button>
+                            <button class="botao" style="margin-right: 8px">Y</button>
                         </section>
                     </main>
             </div>
@@ -409,24 +413,24 @@
             <div id="exp">
                 <div class="column container" >
                     <div class="row">
-                        <button id="botaotail">
-                            <img src="taillogow 1.png" alt="Logo Tail" id="tail">
+                        <button class="botao" id="botaotail">
+                            <img src="{{url_for('static', filename='images/taillogow 1.png')}}" alt="Logo Tail" id="tail">
                         </button>
-                        <button id="botaoriw">
-                            <img src="riw.png" alt="Logo Rio Innovation Week" id="riwb">
+                        <button class="botao" id="botaoriw">
+                            <img src="{{url_for('static', filename='images/riw.png')}}" alt="Logo Rio Innovation Week" id="riwb">
                         </button>
-                        <button id="botaoifrj">
-                            <img src="ifrj.png" alt="Logo IFRJ" id="ifrj">
+                        <button class="botao" id="botaoifrj">
+                            <img src="{{url_for('static', filename='images/ifrj.png')}}" alt="Logo IFRJ" id="ifrj">
                         </button>
                     </div>
-                    <button id="botaopalmas">
+                    <button class="botao" id="botaopalmas">
                         <p id="tipopalmas">PALMAS</p>
                     </button>
                 </div>
             </div>
             <div id="jogo">
                 <div class="row">
-                        <img src="PEDRA.png" id="cameraImg" alt="Vídeo da camera!">
+                        <img src="{{url_for('static', filename='images/PEDRA.png')}}" id="cameraImg" alt="Vídeo da camera!">
                     <div class="column" id="jokenpo">
                         <div class="ppt" style="margin-top: 15px;">
                             <p style="margin-top: 1px; padding-left: 2px;padding-right: 2px;" >SUA JOGADA</p>
@@ -444,7 +448,7 @@
                 </div>
             </div>
         </div>
-        <img src="ladoe.svg" alt="listra lateral direita" class="ladinho" id="ladoe">
+        <img src="{{url_for('static', filename='images/ladoe.svg')}}" alt="listra lateral direita" class="ladinho" id="ladoe">
     </div>
     <div id="voltar">
         <button onclick="voltar()"  id="botaovoltar">
@@ -452,9 +456,9 @@
         </button>
     </div>
     <div id="imgrow">
-        <img id="logoif" src="ifbranco 1.png" alt="Logo IFRJ campus Niterói">
-        <img id="logotail" src="taillogotipow 1.png" alt="Logotipo Tail">
-        <img id="riw" src="riw.png" alt="Logo Rio Innovation Week">
+        <img id="logoif" src="{{url_for('static', filename='images/ifbranco 1.png')}}" alt="Logo IFRJ campus Niterói">
+        <img id="logotail" src="{{url_for('static', filename='images/taillogotipow 1.png')}}" alt="Logotipo Tail">
+        <img id="riw" src="{{url_for('static', filename='images/riw.png')}}" alt="Logo Rio Innovation Week">
     </div>
     <script>
         let jogo = 0
@@ -464,17 +468,14 @@
         function voltar(){
             guia('#inicio')
             const NEWPAGINAS = ["#letra", "#exp", "#jogo"]
-            console.log(NEWPAGINAS)
             NEWPAGINAS.forEach((pagina) => {
                 document.querySelector(pagina).style.display = "none"
             })
             document.querySelector("#inicio").style.display = "block"
-            console.log(document.getElementById("ladod"))
-            console.log(document.getElementById("ladoe"))
-            document.querySelector("#ladoe").src = 'ladoe.svg'
+            document.querySelector("#ladoe").src = "{{url_for('static', filename='images/ladoe.svg')}}"
             document.querySelector("#ladoe").style.height = "248.5px"
             document.querySelector("#ladoe").style.marginTop = "190px"
-            document.querySelector("#ladod").src = 'ladod.svg'
+            document.querySelector("#ladod").src = "{{url_for('static', filename='images/ladod.svg')}}"
             document.querySelector("#ladod").style.height = "248.5px"
             document.querySelector("#ladod").style.marginTop = "190px"
             document.querySelector("#logoif").style.marginTop = "56.55px"
@@ -482,7 +483,7 @@
             document.querySelector("#riw").style.marginTop = "56.55px"
             document.querySelector("#recuo").style.height = "420px"
             if(jogo == 1){
-                document.querySelector("#cameraImg").src = "pedra.png"    
+                document.querySelector("#cameraImg").src = "{{url_for('static', filename='images/pedra.png')}}"   
             }
         }
         
@@ -506,18 +507,16 @@
             }
             if (op == "#jogo") {
                 console.log(jogo)
-                //comentado enquanto não tem camera
-                //document.querySelector("#cameraImg").src = "http://IP_PYTHON:8000/streamPython" 
                 document.querySelector("#recuo").style.height = "500px"
                 document.querySelector("#logoif").style.marginTop = "0px"
                 document.querySelector("#logotail").style.marginTop = "0px"
                 document.querySelector("#riw").style.marginTop = "0px"
                 console.log(document.getElementById("ladod"))
                 console.log(document.getElementById("ladoe"))
-                document.querySelector("#ladoe").src = 'ladod2.svg'
+                document.querySelector("#ladoe").src = "{{url_for('static', filename='images/ladod2.svg')}}"
                 document.querySelector("#ladoe").style.height = "603px"
                 document.querySelector("#ladoe").style.marginTop = "63px"
-                document.querySelector("#ladod").src = 'ladoe2.svg'
+                document.querySelector("#ladod").src = "{{url_for('static', filename='images/ladoe2.svg')}}"
                 document.querySelector("#ladod").style.height = "603px"
                 document.querySelector("#ladod").style.marginTop = "63px"
                 document.querySelector("#logoif").style.marginTop = "0px"
@@ -527,9 +526,9 @@
 
                 if(jogo == 0){
                     setTimeout(()=>{
-                        document.querySelector('#cameraImg').src="PAPEL.png"
+                        document.querySelector('#cameraImg').src="{{url_for('static', filename='images/PAPEL.png')}}"
                         setTimeout(()=>{
-                            document.querySelector('#cameraImg').src="TESOURA.png"
+                            document.querySelector('#cameraImg').src="{{url_for('static', filename='images/TESOURA.png')}}"
                             setTimeout(()=>{
                                 document.querySelector("#cameraImg").src = "http://localhost/camera"
                             },1000)
@@ -539,9 +538,9 @@
                 }else{
                     console.log("Segunda vez")
                     setTimeout(()=>{
-                        document.querySelector('#cameraImg').src="PAPEL.png"
+                        document.querySelector('#cameraImg').src="{{url_for('static', filename='images/PAPEL.png')}}"
                         setTimeout(()=>{
-                            document.querySelector('#cameraImg').src="TESOURA.png"
+                            document.querySelector('#cameraImg').src="{{url_for('static', filename='images/TESOURA.png')}}"
                             setTimeout(()=>{
                                 document.querySelector("#cameraImg").src = "http://localhost/camera"
                             },1000)
@@ -551,17 +550,15 @@
 
 
 
-            } else {
-                //comentado enquanto não tem camera
-                //    document.querySelector("#cameraImg").src = "#"
             }
+
             if (op == "#letra"){
                 console.log(document.getElementById("ladod"))
                 console.log(document.getElementById("ladoe"))
-                document.querySelector("#ladoe").src = 'ladod2.svg'
+                document.querySelector("#ladoe").src = "{{url_for('static', filename='images/ladod2.svg')}}"
                 document.querySelector("#ladoe").style.height = "603px"
                 document.querySelector("#ladoe").style.marginTop = "63px"
-                document.querySelector("#ladod").src = 'ladoe2.svg'
+                document.querySelector("#ladod").src = "{{url_for('static', filename='images/ladoe2.svg')}}"
                 document.querySelector("#ladod").style.height = "603px"
                 document.querySelector("#ladod").style.marginTop = "63px"
                 document.querySelector("#logoif").style.marginTop = "0px"
@@ -571,31 +568,29 @@
             }
 
         }
+
+        
         //não ta funfando ainda
-        let botoes = document.querySelectorAll("button:not(button[onclick])")
+        let botoes = document.querySelectorAll(".botao")
+
         async function on(pagina) {
-            textosResposta.forEach(elemento => elemento.innerHTML = "Fazendo pedido... Aguarde")
-            console.log("/on" + pagina)
-            const resposta = await fetch("/on" + pagina)
+            console.log("/" + pagina)
+            const resposta = await fetch("/" + pagina)
             .then(resposta => {
                 const dados = resposta
                 console.log(dados)
-                textosResposta.forEach(elemento => elemento.innerHTML = "Pedido feito!")
             })
-            .catch(erro => {
-                textosResposta.forEach(elemento => elemento.innerHTML = "Erro, verifique sua conexão com o servidor")
-            });
-            botoes.forEach(elemento => elemento.style.color = "#FFF")
+            botoes.forEach(elemento => elemento.style.opacity = "1")
         }
+
         botoes.forEach((elemento) => {
-            elemento.style.color = "#FFF"
+            elemento.style.opacity = "1"
             elemento.addEventListener("click", () => {
-                if (elemento.style.color == "#FFF") {
-                    botoes.forEach(elemento => elemento.style.color = "rgba(240, 248, 255, 0.534)")
-                    elemento.style.color = "#128891"
-                    on(elemento.innerHTML) // Futuro tratamento de espaços no caso de erro com páginas do esp32
-                } else {
-                    textosResposta.forEach(elemento => elemento.innerHTML = "Espere!")
+                if (elemento.style.opacity == "1") {
+                    botoes.forEach(elemento => elemento.style.opacity = "0.25")
+                    elemento.style.opacity = "1"
+
+                    elemento.id == "" ? on(elemento.innerHTML) : on(elemento.id)
                 }
             })
         })

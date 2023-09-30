@@ -1,15 +1,15 @@
-from flask import Flask, Response, request
+from flask import Flask, Response, render_template
 import numpy as np
 import math
 import serial
 import cv2
 from cvzone.HandTrackingModule import HandDetector
 from cvzone.ClassificationModule import Classifier
-from index import html
+from time import sleep
 
 # laires = serial.Serial('COM6', 115200)
 
-labels = ["A", "B", "C"]
+labels = ["Pedra", "Papel", "Tesoura"]
 offset = 20
 imgSize = 300
 
@@ -25,10 +25,7 @@ server = Flask("")
 
 @server.route('/')
 def handleRoot():
-    def root():
-        yield(html)
-
-    return Response(root(), mimetype='text/html; charset=utf-8')
+    return render_template("index.html")
 
 @server.route('/camera')
 def streamPython():
@@ -76,5 +73,14 @@ def streamPython():
 
             yield(b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + imgBytes + b'\r\n')
     return Response(stream(), mimetype='multipart/x-mixed-replace; boundary=frame')
+
+@server.route("/<path>")
+def comandoPath(path):
+    print(path)
+    # laires.write(b'' + path)
+    sleep(2)
+    return Response((yield(b'Recebido')), mimetype='text/html')
+
+
 
 server.run(host='localhost', port=80)
