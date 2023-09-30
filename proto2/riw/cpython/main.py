@@ -1,18 +1,51 @@
 from flask import Flask, Response, render_template
-import numpy as np
-import math
 import serial
 import cv2
-from cvzone.HandTrackingModule import HandDetector
-from cvzone.ClassificationModule import Classifier
 from time import sleep
 import random
+import mediapipe as mp
+
+# Configuração da detecção dos gestos
+biblioteca = mp.solutions.hands
+interpretador = biblioteca.Hands(max_num_hands=1)
+
+statusJogador = {
+    "dedao": "aberto",
+    "indicador": "aberto",
+    "medio": "aberto",
+    "anelar": "aberto",
+    "mindinho": "aberto"
+}
+
+statusPedra = {
+    "dedao": "fechado",
+    "indicador": "fechado",
+    "medio": "fechado",
+    "anelar": "fechado",
+    "mindinho": "fechado"
+}
+
+statusPapel = {
+    "dedao": "aberto",
+    "indicador": "aberto",
+    "medio": "aberto",
+    "anelar": "aberto",
+    "mindinho": "aberto"
+}
+
+statusTesoura = {
+    "dedao": "fechado",
+    "indicador": "aberto",
+    "medio": "aberto",
+    "anelar": "fechado",
+    "mindinho": "fechado"
+}
+
+statusSalvos = {"PEDRA": statusPedra, "PAPEL": statusPapel, "TESOURA": statusTesoura}
 
 # laires = serial.Serial('COM6', 115200)
 
-labels = ["Pedra", "Papel", "Tesoura"]
-offset = 20
-imgSize = 300
+labels = ["PEDRA", "PAPEL", "TESOURA"]
 status = ""
 jogo_ocorrido = False
 
@@ -21,8 +54,6 @@ if not conn.isOpened():
     print("Não foi possível se conectar com a câmera!")
     exit()
 conn.set(cv2.CAP_PROP_EXPOSURE, 0.5)
-detector = HandDetector(maxHands=1)
-classifier = Classifier("Model/keras_model.h5", "Model/labels.txt")
 
 server = Flask("")
 
@@ -38,71 +69,41 @@ def streamPython():
         while True:
             retorno, img = conn.read()
             img = cv2.flip(img, 1)
+            imgBytes = cv2.imencode('.jpg', img)[1].tobytes()
+            imgRGB = cv2.cvtColor(img,cv2.COLOR_BGR2RGB)
+            resultado = interpretador.process(imgRGB)
+            pontosMao = resultado.multi_hand_landmarks
+            altura, largura, _ = img.shape
+            pontos = []
 
-            imgOutput = img.copy()
-            hands, img = detector.findHands(img)
-            if hands:
-                hand = hands[0]
-                x, y, w, h = hand['bbox']
+            if pontosMao:
+                for ponto in pontosMao:
+                    for coordenada in ponto.landmark:
+                        pontos.append((int(coordenada.x * largura), int(coordenada.y * altura)))
+                    
+                    dedos = [("indicador", 8), ("medio", 12), ("anelar", 16), ("mindinho", 20)]
+                    if pontos:
+                        statusJogador["dedao"] = "fechado" if  pontos[4][0] < pontos[3][0] else "aberto"
+                        for x in dedos:
+                            statusJogador[x[0]] = "aberto" if pontos[x[1]][1] < pontos[x[1]-2][1] else "fechado"
+            
+            for teste in statusSalvos:
+                if statusSalvos[teste] == statusJogador:
+                    if not jogo_ocorrido:
+                        jogadaTail = random.randint(0, 2)
 
-                imgWhite = np.ones((imgSize, imgSize, 3), np.uint8) * 255
-                imgCrop = img[y - offset:y + h + offset, x - offset:x + w + offset]
+                        if teste == labels[jogadaTail]:
+                            resultado = "EMPATE"
+                        elif (teste == "PEDRA" and labels[jogadaTail] == "TESOURA") or (teste == "TESOURA" and labels[jogadaTail] == "PAPEL") or (teste == "PAPEL" and labels[jogadaTail] == "PEDRA"):
+                            resultado = "JOGADOR"
+                        else:
+                            resultado = "TAIL"
 
-                imgCropShape = imgCrop.shape
+                        status = teste + "," + labels[jogadaTail] + "," +  resultado
+                        # laires.write(b'' + labels[jogadaTail])
+                        jogo_ocorrido = True
 
-                aspectRatio = h / w
 
-                if aspectRatio > 1:
-                    k = imgSize / h
-                    wCal = math.ceil(k * w)
-                    imgResize = cv2.resize(imgCrop, (wCal, imgSize))
-                    imgResizeShape = imgResize.shape
-                    wGap = math.ceil((imgSize - wCal) / 2)
-                    imgWhite[:, wGap:wCal + wGap] = imgResize
-                    prediction, index = classifier.getPrediction(imgWhite, draw=False)
-                    print(np.max(prediction), index) # Mostra o index da classe de maior probabilidade
-                    if np.max(prediction) > 0.8:
-                        if not jogo_ocorrido:
-                            jogadaTail = random.randint(0, 2)
-
-                            if labels[index] == labels[jogadaTail]:
-                                resultado = "Empate"
-                            elif (labels[index] == "Pedra" and labels[jogadaTail] == "Tesoura") or (labels[index] == "Tesoura" and labels[jogadaTail] == "Papel") or (labels[index] == "Papel" and labels[jogadaTail] == "Pedra"):
-                                resultado = "Jogador"
-                            else:
-                                resultado = "Maquina"
-
-                            status = labels[index] + "," + labels[jogadaTail] + "," +  resultado
-                            # laires.write(b'' + labels[jogadaTail])
-
-                            jogo_ocorrido = True
-
-                else:
-                    k = imgSize / w
-                    hCal = math.ceil(k * h)
-                    imgResize = cv2.resize(imgCrop, (imgSize, hCal))
-                    imgResizeShape = imgResize.shape
-                    hGap = math.ceil((imgSize - hCal) / 2)
-                    imgWhite[hGap:hCal + hGap, :] = imgResize
-                    prediction, index = classifier.getPrediction(imgWhite, draw=False)
-                    print(np.max(prediction), index) # Mostra o index da classe de maior probabilidade
-                    if np.max(prediction) > 0.8:
-                        if not jogo_ocorrido:
-                            jogadaTail = random.randint(0, 2)
-
-                            if labels[index] == labels[jogadaTail]:
-                                resultado = "Empate"
-                            elif (labels[index] == "Pedra" and labels[jogadaTail] == "Tesoura") or (labels[index] == "Tesoura" and labels[jogadaTail] == "Papel") or (labels[index] == "Papel" and labels[jogadaTail] == "Pedra"):
-                                resultado = "Jogador"
-                            else:
-                                resultado = "Maquina"
-
-                            status = labels[index] + "," + labels[jogadaTail] + "," +  resultado
-                            # laires.write(b'' + labels[jogadaTail])
-
-                            jogo_ocorrido = True
-
-            imgBytes = cv2.imencode('.jpg', imgOutput)[1].tobytes()
 
             yield(b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + imgBytes + b'\r\n')
     return Response(stream(), mimetype='multipart/x-mixed-replace; boundary=frame')

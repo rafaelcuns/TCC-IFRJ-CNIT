@@ -57,7 +57,7 @@
             width:639px;
             height:139px;
         }
-        #jogo, #letra, #exp, #voltar {
+        #jogo, #letra, #exp, #voltar, #jogar {
             display: none;
         }
         main{
@@ -169,6 +169,20 @@
             justify-content: center;
             flex: 1 0 0;
             align-self: stretch;
+            }
+            #botaojogar {
+                border-radius: 3px;
+                background: #2B877D;
+                border: none;
+                box-shadow: 5px 6px 4px 0px rgba(0, 0, 0, 0.25);
+                display: flex;
+                padding: 2%;
+                align-items: flex-start;
+                gap: 5px;
+                flex-shrink: 0;
+                justify-content: center;
+                margin: auto;
+                margin-top: none;
             }
         #botaovoltar{
             border-radius: 3px;
@@ -434,17 +448,23 @@
                     <div class="column" id="jokenpo">
                         <div class="ppt" style="margin-top: 15px;">
                             <p style="margin-top: 1px; padding-left: 2px;padding-right: 2px;" >SUA JOGADA</p>
-                            <p class="status" style="margin-bottom: 0px; color:#128891">TESOURA</p>
+                            <p class="status" style="color:#128891"></p>
                         </div>
                         <div class="ppt">
                             <p style="margin-top: 1px; padding-left: 10px;padding-right: 10px;">JOGADA DA MÃO</p>
-                            <p class="status" style="margin-bottom: 0px; color:#128891">PAPEL</p>
+                            <p class="status" style="color:#128891"></p>
                         </div>
                         <div class="ppt">
-                            <p style="margin-top: 1px">RESULTADO</p>
-                            <p class="status" style="margin-bottom: 0px; color:#128891">VITÓRIA</p>
+                            <p style="margin-top: 1px">RESULTADO<p>
+                            <p class="status" style="color:#128891"></p>
                         </div>
                     </div>
+                </div>
+                <br>
+                <div id="jogar">
+                    <button onclick="jogar()"  id="botaojogar">
+                        <p id="tipovoltar">JOGAR NOVAMENTE!</p>
+                    </button>
                 </div>
             </div>
         </div>
@@ -486,7 +506,70 @@
                 document.querySelector("#cameraImg").src = "{{url_for('static', filename='images/pedra.png')}}"   
             }
         }
-        
+        function jogar() {
+            document.querySelector("#cameraImg").src = "{{url_for('static', filename='images/pedra.png')}}"
+            document.querySelector("#recuo").style.height = "500px"
+            document.querySelector("#logoif").style.marginTop = "0px"
+            document.querySelector("#logotail").style.marginTop = "0px"
+            document.querySelector("#riw").style.marginTop = "0px"
+            document.querySelector("#ladoe").src = "{{url_for('static', filename='images/ladod2.svg')}}"
+            document.querySelector("#ladoe").style.height = "603px"
+            document.querySelector("#ladoe").style.marginTop = "63px"
+            document.querySelector("#ladod").src = "{{url_for('static', filename='images/ladoe2.svg')}}"
+            document.querySelector("#ladod").style.height = "603px"
+            document.querySelector("#ladod").style.marginTop = "63px"
+            document.querySelector("#logoif").style.marginTop = "0px"
+            document.querySelector("#logotail").style.marginTop = "0px"
+            document.querySelector("#riw").style.marginTop = "0px"
+            document.querySelector("#recuo").style.height = "645px"
+
+            if(jogo == 0){
+
+                setTimeout(()=>{
+                    document.querySelector('#cameraImg').src="{{url_for('static', filename='images/PAPEL.png')}}"
+                    setTimeout(()=>{
+                        document.querySelector('#cameraImg').src="{{url_for('static', filename='images/TESOURA.png')}}"
+                        setTimeout(()=>{
+                            document.querySelector("#cameraImg").src = "http://localhost/camera"
+                            setInterval(() => {
+                                if (document.querySelector("#cameraImg").src == "http://localhost/camera") {
+                                    fetch("/jogoStatus").then(resposta => resposta.text()).then(dados => {
+                                        console.log(dados)
+                                        textoStatus = document.querySelectorAll(".status")
+                                        textoStatus[0].innerHTML = Array.from(dados.split(","))[0]
+                                        textoStatus[1].innerHTML = Array.from(dados.split(","))[1]
+                                        textoStatus[2].innerHTML = Array.from(dados.split(","))[2]
+                                    })
+                                }
+                            }, 1000)
+                        },1000)
+                    },1000)
+                },1000)
+                jogo = 1
+            }else{
+                console.log("Segunda vez")
+                setTimeout(()=>{
+                    document.querySelector('#cameraImg').src="{{url_for('static', filename='images/PAPEL.png')}}"
+                    setTimeout(()=>{
+                        document.querySelector('#cameraImg').src="{{url_for('static', filename='images/TESOURA.png')}}"
+                        setTimeout(()=>{
+                            document.querySelector("#cameraImg").src = "http://localhost/camera"
+                            setInterval(() => {
+                                if (document.querySelector("#cameraImg").src == "http://localhost/camera") {
+                                    fetch("/jogoStatus").then(resposta => resposta.text()).then(dados => {
+                                        console.log(dados)
+                                        textoStatus = document.querySelectorAll(".status")
+                                        textoStatus[0].innerHTML = Array.from(dados.split(","))[0]
+                                        textoStatus[1].innerHTML = Array.from(dados.split(","))[1]
+                                        textoStatus[2].innerHTML = Array.from(dados.split(","))[2]
+                                    })
+                                }
+                            }, 1000)
+                        },1000)
+                    },1000)
+                },1000)
+            }
+        }
         function guia(op) {
             PAGINAS.forEach((pagina) => {
                 document.querySelector(pagina).style.display = "none"
@@ -495,10 +578,12 @@
             
             if(op == "#inicio"){
                 document.querySelector("#voltar").style.display = "none"
+                document.querySelector("#jogar").style.display = "none"
             }
             
             if(op== "#jogo" || op == "#exp"  || op == "#letra"){
                 document.querySelector("#voltar").style.display = "flex"
+                document.querySelector("#jogar").style.display = "flex"
             }
 
             if(op == "#exp"){
@@ -506,69 +591,7 @@
 
             }
             if (op == "#jogo") {
-                document.querySelector("#recuo").style.height = "500px"
-                document.querySelector("#logoif").style.marginTop = "0px"
-                document.querySelector("#logotail").style.marginTop = "0px"
-                document.querySelector("#riw").style.marginTop = "0px"
-                document.querySelector("#ladoe").src = "{{url_for('static', filename='images/ladod2.svg')}}"
-                document.querySelector("#ladoe").style.height = "603px"
-                document.querySelector("#ladoe").style.marginTop = "63px"
-                document.querySelector("#ladod").src = "{{url_for('static', filename='images/ladoe2.svg')}}"
-                document.querySelector("#ladod").style.height = "603px"
-                document.querySelector("#ladod").style.marginTop = "63px"
-                document.querySelector("#logoif").style.marginTop = "0px"
-                document.querySelector("#logotail").style.marginTop = "0px"
-                document.querySelector("#riw").style.marginTop = "0px"
-                document.querySelector("#recuo").style.height = "580px"
-
-                if(jogo == 0){
-                    setTimeout(()=>{
-                        document.querySelector('#cameraImg').src="{{url_for('static', filename='images/PAPEL.png')}}"
-                        setTimeout(()=>{
-                            document.querySelector('#cameraImg').src="{{url_for('static', filename='images/TESOURA.png')}}"
-                            setTimeout(()=>{
-                                document.querySelector("#cameraImg").src = "http://localhost/camera"
-                                setInterval(() => {
-                                    if (document.querySelector("#cameraImg").src == "http://localhost/camera") {
-                                        fetch("/jogoStatus").then(resposta => resposta.text()).then(dados => {
-                                            console.log(dados)
-                                            textoStatus = document.querySelectorAll(".status")
-                                            textoStatus[0].innerHTML = Array.from(dados.split(","))[0]
-                                            textoStatus[1].innerHTML = Array.from(dados.split(","))[1]
-                                            textoStatus[2].innerHTML = Array.from(dados.split(","))[2]
-                                        })
-                                    }
-                                }, 1000)
-                            },1000)
-                        },1000)
-                    },1000)
-                    jogo = 1
-                }else{
-                    console.log("Segunda vez")
-                    setTimeout(()=>{
-                        document.querySelector('#cameraImg').src="{{url_for('static', filename='images/PAPEL.png')}}"
-                        setTimeout(()=>{
-                            document.querySelector('#cameraImg').src="{{url_for('static', filename='images/TESOURA.png')}}"
-                            setTimeout(()=>{
-                                document.querySelector("#cameraImg").src = "http://localhost/camera"
-                                setInterval(() => {
-                                    if (document.querySelector("#cameraImg").src == "http://localhost/camera") {
-                                        fetch("/jogoStatus").then(resposta => resposta.text()).then(dados => {
-                                            console.log(dados)
-                                            textoStatus = document.querySelectorAll(".status")
-                                            textoStatus[0].innerHTML = Array.from(dados.split(","))[0]
-                                            textoStatus[1].innerHTML = Array.from(dados.split(","))[1]
-                                            textoStatus[2].innerHTML = Array.from(dados.split(","))[2]
-                                        })
-                                    }
-                                }, 1000)
-                            },1000)
-                        },1000)
-                    },1000)
-                }
-
-
-
+                jogar()
             }
 
             if (op == "#letra"){
