@@ -1,5 +1,9 @@
 # TAIL TCC - Braço Robótico
 
+![Logo TAIL](<proto2/riw/cpython/static/images/taillogotipow 1.png>)
+
+[![Botão Instagram](https://camo.githubusercontent.com/5c3f3164b340475c38f1ec3d8c6d0c6e8656fbccac25d06cfb86477079b88638/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f696e7374616772616d2d2532334534343035462e7376673f267374796c653d666f722d7468652d6261646765266c6f676f3d696e7374616772616d266c6f676f436f6c6f723d7768697465) @tail_tcc](www.instagram.com/tail_tcc)
+
 O Totem de Acessibilidade e Informação em Libras é um trabalho de conclusão de curso do curso técnico integrado de informática do IFRJ campus Niterói.
 
 TAIL tem o objetivo de auxiliar os educadores no ensino de crianças e jovens nas escolas sobre o ensino da linguagem de sinais (libras), fazendo uso extremo da robótica com micro servos e impressão 3D.
