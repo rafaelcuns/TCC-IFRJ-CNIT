@@ -83,7 +83,10 @@ def streamPython():
                     
                     dedos = [("indicador", 8), ("medio", 12), ("anelar", 16), ("mindinho", 20)]
                     if pontos:
-                        statusJogador["dedao"] = "fechado" if  pontos[4][0] < pontos[3][0] else "aberto"
+                        if ponto.landmark[biblioteca.HandLandmark.WRIST].x < 0.5:
+                            statusJogador["dedao"] = "fechado" if  pontos[4][0] < pontos[3][0] else "aberto"
+                        else:
+                            statusJogador["dedao"] = "fechado" if  pontos[3][0] < pontos[4][0] else "aberto"
                         for x in dedos:
                             statusJogador[x[0]] = "aberto" if pontos[x[1]][1] < pontos[x[1]-2][1] else "fechado"
             
