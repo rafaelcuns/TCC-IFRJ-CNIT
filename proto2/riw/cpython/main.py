@@ -43,7 +43,7 @@ statusTesoura = {
 
 statusSalvos = {"PEDRA": statusPedra, "PAPEL": statusPapel, "TESOURA": statusTesoura}
 
-# laires = serial.Serial('COM6', 115200)
+laires = serial.Serial('COM8', 115200)
 
 labels = ["PEDRA", "PAPEL", "TESOURA"]
 status = ""
@@ -103,7 +103,7 @@ def streamPython():
                             resultado = "TAIL"
 
                         status = teste + "," + labels[jogadaTail] + "," +  resultado
-                        # laires.write(b'' + labels[jogadaTail])
+                        laires.write(b'' + labels[jogadaTail].encode())
                         jogo_ocorrido = True
 
 
@@ -114,7 +114,7 @@ def streamPython():
 @server.route("/<path>")
 def comandoPath(path):
     print(path)
-    # laires.write(b'' + path)
+    laires.write(b'' + path.encode())
     sleep(2)
     return Response((yield(b'Recebido')), mimetype='text/html')
 

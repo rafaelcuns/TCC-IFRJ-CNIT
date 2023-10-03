@@ -404,13 +404,13 @@
                             <button class="botao" style="margin-right: 8px">I</button>
                         </section>
                         <section class="row"> 
+                            <button class="botao">J</button>
                             <button class="botao">L</button>
                             <button class="botao">M</button>
-                            <button class="botao">N</button>
                             <button class="botao" style="margin-right: 8px">O</button>
                         </section>
                         <section class="row">
-                            <button class="botao">P</button>
+                            <button class="botao">N</button>
                             <button class="botao">Q</button>
                             <button class="botao">R</button>
                             <button class="botao" style="margin-right: 8px">S</button>
@@ -485,7 +485,12 @@
         const PAGINAS = ["#inicio", "#letra", "#exp", "#jogo"]
         let textosResposta = document.querySelectorAll("p.resposta")
         
-        function voltar(){
+        async function voltar(){
+            const resposta = await fetch("/voltar")
+            .then(resposta => {
+                const dados = resposta
+                console.log(dados)
+            })
             guia('#inicio')
             const NEWPAGINAS = ["#letra", "#exp", "#jogo"]
             NEWPAGINAS.forEach((pagina) => {
