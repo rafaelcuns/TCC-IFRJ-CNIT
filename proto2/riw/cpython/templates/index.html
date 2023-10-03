@@ -407,10 +407,10 @@
                             <button class="botao">J</button>
                             <button class="botao">L</button>
                             <button class="botao">M</button>
-                            <button class="botao" style="margin-right: 8px">O</button>
+                            <button class="botao" style="margin-right: 8px">N</button>
                         </section>
                         <section class="row">
-                            <button class="botao">N</button>
+                            <button class="botao">O</button>
                             <button class="botao">Q</button>
                             <button class="botao">R</button>
                             <button class="botao" style="margin-right: 8px">S</button>
@@ -511,7 +511,12 @@
                 document.querySelector("#cameraImg").src = "{{url_for('static', filename='images/pedra.png')}}"   
             }
         }
-        function jogar() {
+        async function jogar() {
+            const resposta = await fetch("/voltar")
+            .then(resposta => {
+                const dados = resposta
+                console.log(dados)
+            })
             document.querySelector("#cameraImg").src = "{{url_for('static', filename='images/pedra.png')}}"
             document.querySelector("#recuo").style.height = "500px"
             document.querySelector("#logoif").style.marginTop = "0px"

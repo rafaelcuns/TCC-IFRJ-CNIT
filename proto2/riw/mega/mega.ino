@@ -17,9 +17,7 @@ Servo dedaoPuxo;
 Servo pulso;
 Servo cotovelo;
 
-bool batendo = false;
 bool idle = true;
-
 void setup() {
     Serial.begin(115200);
 
@@ -33,6 +31,7 @@ void setup() {
     pulso.attach(11);
     cotovelo.attach(10);
 
+    // Idle
     mindinho.write(180);
     anelar.write(0);
     medio.write(180);
@@ -41,25 +40,6 @@ void setup() {
     dedaoPuxo.write(180);
     pulso.write(0); // 120 fecha
     cotovelo.write(180);
-
-    // mindinho.write(0);
-    // anelar.write(180);
-    // medio.write(0);
-    // indicador.write(0);
-    // pulso.write(120);
-    // cotovelo.write(180);
-    // delay(250);
-    // dedao.write(0);
-    // dedaoPuxo.write(0);
-
-    // mindinho.write(0);
-    // anelar.write(180);
-    // medio.write(180);
-    // indicador.write(180);
-    // dedao.write(0);
-    // dedaoPuxo.write(0);
-    // pulso.write(0);
-    // cotovelo.write(180);
 
     testeServo.write(0);
 }
@@ -76,9 +56,26 @@ void loop() {
       if (distancia <= 5 && distancia != 0) {
         idle = false;
         // Cumprimento
-        testeServo.write(90);
-        delay(7000);
-        testeServo.write(0);
+        mindinho.write(0);
+        anelar.write(180);
+        medio.write(0);
+        indicador.write(0);
+        pulso.write(120);
+        cotovelo.write(180);
+        delay(250);
+        dedao.write(0);
+        dedaoPuxo.write(0);
+
+        delay(5000);
+
+        mindinho.write(180);
+        anelar.write(0);
+        medio.write(180);
+        indicador.write(180);
+        dedao.write(180);
+        dedaoPuxo.write(180);
+        pulso.write(0);
+        cotovelo.write(180);
 
         idle = true;
       }
@@ -86,6 +83,393 @@ void loop() {
 
     // Letras
     if (comando == "A") {
+        idle = false;
+        mindinho.write(0);
+        anelar.write(180);
+        medio.write(0);
+        indicador.write(0);
+        dedao.write(180);
+        dedaoPuxo.write(0);
+        pulso.write(0);
+        cotovelo.write(180);
+    } else if (comando == "B") {
+        idle = false;
+        mindinho.write(180);
+        anelar.write(0);
+        medio.write(180);
+        indicador.write(180);
+        dedao.write(0);
+        dedaoPuxo.write(0);
+        pulso.write(0);
+        cotovelo.write(180);
+    } else if (comando == "C") {
+        idle = false;
+        mindinho.write(90);
+        anelar.write(90);
+        medio.write(90);
+        indicador.write(90);
+        dedao.write(90);
+        dedaoPuxo.write(0);
+        pulso.write(0);
+        cotovelo.write(90);
+    } else if (comando == "D") {
+        idle = false;
+        mindinho.write(0);
+        anelar.write(180);
+        medio.write(0);
+        indicador.write(180);
+        dedao.write(0);
+        dedaoPuxo.write(0);
+        pulso.write(0);
+        cotovelo.write(180);
+    } else if (comando == "E") {
+        idle = false;
+        mindinho.write(0);
+        anelar.write(180);
+        medio.write(0);
+        indicador.write(0);
+        dedao.write(0);
+        dedaoPuxo.write(0);
+        pulso.write(0);
+        cotovelo.write(180);
+    } else if (comando == "F") {
+        idle = false;
+        mindinho.write(180);
+        anelar.write(0);
+        medio.write(180);
+        indicador.write(0);
+        delay(500);
+        dedao.write(180);
+        dedaoPuxo.write(0);
+        pulso.write(0);
+        cotovelo.write(0);
+    } else if (comando == "G") {
+        idle = false;
+        mindinho.write(0);
+        anelar.write(180);
+        medio.write(0);
+        indicador.write(180);
+        dedao.write(180);
+        dedaoPuxo.write(0);
+        pulso.write(0);
+        cotovelo.write(180);
+    } else if (comando == "I") {
+        idle = false;
+        mindinho.write(180);
+        anelar.write(180);
+        medio.write(0);
+        indicador.write(0);
+        dedao.write(0);
+        dedaoPuxo.write(0);
+        pulso.write(0);
+        cotovelo.write(180);
+    } else if (comando == "L") {
+        idle = false;
+        mindinho.write(0);
+        anelar.write(180);
+        medio.write(0);
+        indicador.write(180);
+        dedao.write(180);
+        dedaoPuxo.write(180);
+        pulso.write(0);
+        cotovelo.write(180);
+    } else if (comando == "M") {
+        idle = false;
+        mindinho.write(0);
+        anelar.write(0);
+        medio.write(180);
+        indicador.write(180);
+        dedao.write(0);
+        dedaoPuxo.write(0);
+        pulso.write(120);
+        cotovelo.write(180);
+    } else if (comando == "N") {
+        idle = false;
+        mindinho.write(0);
+        anelar.write(180);
+        medio.write(180);
+        indicador.write(180);
+        dedao.write(0);
+        dedaoPuxo.write(0);
+        pulso.write(120);
+        cotovelo.write(180);
+    } else if (comando == "O") {
+        idle = false;
+        mindinho.write(0);
+        anelar.write(180);
+        medio.write(0);
+        indicador.write(0);
+        pulso.write(0);
+        cotovelo.write(0);
+        delay(250);
+        dedao.write(0);
+        dedaoPuxo.write(0);
+    } else if (comando == "J") {
+        idle = false;
+        mindinho.write(180);
+        anelar.write(180);
+        medio.write(0);
+        indicador.write(0);
+        dedao.write(0);
+        dedaoPuxo.write(0);
+        pulso.write(0);
+        cotovelo.write(180);
+
+        delay(1000);
+
+        pulso.write(120);
+
+        delay(1000);
+
+        cotovelo.write(0);
+
+        delay(1000);
+        
+        pulso.write(0);
+    } else if (comando == "Q") {
+        idle = false;
+        mindinho.write(0);
+        anelar.write(180);
+        medio.write(0);
+        indicador.write(180);
+        dedao.write(0);
+        dedaoPuxo.write(0);
+        pulso.write(120);
+        cotovelo.write(180);
+    } else if (comando == "R") {
+        idle = false;
+        mindinho.write(0);
+        anelar.write(180);
+        medio.write(180);
+        indicador.write(90);
+        dedao.write(0);
+        dedaoPuxo.write(0);
+        pulso.write(0);
+        cotovelo.write(180);
+    } else if (comando == "S") {
+        idle = false;
+        mindinho.write(0);
+        anelar.write(180);
+        medio.write(0);
+        indicador.write(0);
+        pulso.write(0);
+        cotovelo.write(180);
+        delay(250);
+        dedao.write(0);
+        dedaoPuxo.write(0);
+    } else if (comando == "T") {
+        idle = false;
+        dedao.write(180);
+        dedaoPuxo.write(0);
+        delay(500);
+        mindinho.write(180);
+        anelar.write(0);
+        medio.write(180);
+        indicador.write(0);
+        pulso.write(0);
+        cotovelo.write(0);
+    } else if (comando == "V") {
+        idle = false;
+        mindinho.write(0);
+        anelar.write(180);
+        medio.write(180);
+        indicador.write(180);
+        dedao.write(0);
+        dedaoPuxo.write(0);
+        pulso.write(0);
+        cotovelo.write(180);
+    } else if (comando == "W") {
+        idle = false;
+        mindinho.write(0);
+        anelar.write(0);
+        medio.write(180);
+        indicador.write(180);
+        dedao.write(0);
+        dedaoPuxo.write(0);
+        pulso.write(0);
+        cotovelo.write(180);
+    } else if (comando == "Y") {
+        idle = false;
+        mindinho.write(180);
+        anelar.write(180);
+        medio.write(0);
+        indicador.write(0);
+        dedao.write(180);
+        dedaoPuxo.write(180);
+        pulso.write(0);
+        cotovelo.write(180);
+    }
+    
+    // Expressões
+    else if (comando == "botaotail") {
+        idle = false;
+        dedao.write(180);
+        dedaoPuxo.write(0);
+        delay(500);
+        mindinho.write(180);
+        anelar.write(0);
+        medio.write(180);
+        indicador.write(0);
+        pulso.write(0);
+        cotovelo.write(0);
+
+        delay(1500);
+
+        mindinho.write(0);
+        anelar.write(180);
+        medio.write(0);
+        indicador.write(0);
+        dedao.write(180);
+        dedaoPuxo.write(0);
+        pulso.write(0);
+        cotovelo.write(180);
+
+        delay(1500);
+
+        mindinho.write(180);
+        anelar.write(180);
+        medio.write(0);
+        indicador.write(0);
+        dedao.write(0);
+        dedaoPuxo.write(0);
+        pulso.write(0);
+        cotovelo.write(180);
+
+        delay(1500);
+
+        mindinho.write(0);
+        anelar.write(180);
+        medio.write(0);
+        indicador.write(180);
+        dedao.write(180);
+        dedaoPuxo.write(180);
+        pulso.write(0);
+        cotovelo.write(180);
+
+        delay(2000);
+
+        mindinho.write(180);
+        anelar.write(0);
+        medio.write(180);
+        indicador.write(180);
+        dedao.write(180);
+        dedaoPuxo.write(180);
+        pulso.write(0);
+        cotovelo.write(180);
+        idle = true;
+    } else if (comando == "botaoriw") {
+        idle = false;
+        mindinho.write(0);
+        anelar.write(180);
+        medio.write(180);
+        indicador.write(90);
+        dedao.write(0);
+        dedaoPuxo.write(0);
+        pulso.write(0);
+        cotovelo.write(180);
+
+        delay(1500);
+
+        mindinho.write(180);
+        anelar.write(180);
+        medio.write(0);
+        indicador.write(0);
+        dedao.write(0);
+        dedaoPuxo.write(0);
+        pulso.write(0);
+        cotovelo.write(180);
+
+        delay(1500);
+
+        mindinho.write(0);
+        anelar.write(0);
+        medio.write(180);
+        indicador.write(180);
+        dedao.write(0);
+        dedaoPuxo.write(0);
+        pulso.write(0);
+        cotovelo.write(180);
+
+        delay(2000);
+
+        mindinho.write(180);
+        anelar.write(0);
+        medio.write(180);
+        indicador.write(180);
+        dedao.write(180);
+        dedaoPuxo.write(180);
+        pulso.write(0);
+        cotovelo.write(180);
+        idle = true;
+    } else if (comando == "botaoifrj") {
+        idle = false;
+        mindinho.write(180);
+        anelar.write(180);
+        medio.write(0);
+        indicador.write(0);
+        dedao.write(0);
+        dedaoPuxo.write(0);
+        pulso.write(0);
+        cotovelo.write(180);
+
+        delay(1500);
+
+        mindinho.write(180);
+        anelar.write(0);
+        medio.write(180);
+        indicador.write(0);
+        delay(500);
+        dedao.write(180);
+        dedaoPuxo.write(0);
+        pulso.write(0);
+        cotovelo.write(0);
+
+        delay(1500);
+
+        mindinho.write(0);
+        anelar.write(180);
+        medio.write(180);
+        indicador.write(90);
+        dedao.write(0);
+        dedaoPuxo.write(0);
+        pulso.write(0);
+        cotovelo.write(180);
+
+        delay(1500);
+
+        mindinho.write(180);
+        anelar.write(180);
+        medio.write(0);
+        indicador.write(0);
+        dedao.write(0);
+        dedaoPuxo.write(0);
+        pulso.write(0);
+        cotovelo.write(180);
+
+        delay(1000);
+
+        pulso.write(120);
+
+        delay(1000);
+
+        cotovelo.write(0);
+
+        delay(1000);
+        
+        pulso.write(0);
+
+        delay(3000);
+
+        mindinho.write(180);
+        anelar.write(0);
+        medio.write(180);
+        indicador.write(180);
+        dedao.write(180);
+        dedaoPuxo.write(180);
+        pulso.write(0);
+        cotovelo.write(180);
+        idle = true;
+    } else if (comando == "botaopalmas") {
         idle = false;
         mindinho.write(180);
         anelar.write(0);
@@ -95,239 +479,24 @@ void loop() {
         dedaoPuxo.write(180);
         pulso.write(0);
         cotovelo.write(180);
-    } else if (comando == "B") {
-        idle = false;
-        mindinho.write(0);
-        anelar.write(0);
-        medio.write(0);
-        indicador.write(0);
-        dedao.write(0);
-        dedaoPuxo.write(0);
-        pulso.write(0);
+
+        delay(50);
+
         cotovelo.write(0);
-    } else if (comando == "C") {
-        idle = false;
-        mindinho.write(0);
-        anelar.write(0);
-        medio.write(0);
-        indicador.write(0);
-        dedao.write(0);
-        dedaoPuxo.write(0);
-        pulso.write(0);
+
+        delay(1000);
+
+        cotovelo.write(180);
+
+        delay(1000);
+
         cotovelo.write(0);
-    } else if (comando == "D") {
-        idle = false;
-        mindinho.write(0);
-        anelar.write(0);
-        medio.write(0);
-        indicador.write(0);
-        dedao.write(0);
-        dedaoPuxo.write(0);
-        pulso.write(0);
-        cotovelo.write(0);
-    } else if (comando == "E") {
-        idle = false;
-        mindinho.write(0);
-        anelar.write(0);
-        medio.write(0);
-        indicador.write(0);
-        dedao.write(0);
-        dedaoPuxo.write(0);
-        pulso.write(0);
-        cotovelo.write(0);
-    } else if (comando == "F") {
-        idle = false;
-        mindinho.write(0);
-        anelar.write(0);
-        medio.write(0);
-        indicador.write(0);
-        dedao.write(0);
-        dedaoPuxo.write(0);
-        pulso.write(0);
-        cotovelo.write(0);
-    } else if (comando == "G") {
-        idle = false;
-        mindinho.write(0);
-        anelar.write(0);
-        medio.write(0);
-        indicador.write(0);
-        dedao.write(0);
-        dedaoPuxo.write(0);
-        pulso.write(0);
-        cotovelo.write(0);
-    } else if (comando == "I") {
-        idle = false;
-        mindinho.write(0);
-        anelar.write(0);
-        medio.write(0);
-        indicador.write(0);
-        dedao.write(0);
-        dedaoPuxo.write(0);
-        pulso.write(0);
-        cotovelo.write(0);
-    } else if (comando == "L") {
-        idle = false;
-        mindinho.write(0);
-        anelar.write(0);
-        medio.write(0);
-        indicador.write(0);
-        dedao.write(0);
-        dedaoPuxo.write(0);
-        pulso.write(0);
-        cotovelo.write(0);
-    } else if (comando == "M") {
-        idle = false;
-        mindinho.write(0);
-        anelar.write(0);
-        medio.write(0);
-        indicador.write(0);
-        dedao.write(0);
-        dedaoPuxo.write(0);
-        pulso.write(0);
-        cotovelo.write(0);
-    } else if (comando == "N") {
-        idle = false;
-        mindinho.write(0);
-        anelar.write(0);
-        medio.write(0);
-        indicador.write(0);
-        dedao.write(0);
-        dedaoPuxo.write(0);
-        pulso.write(0);
-        cotovelo.write(0);
-    } else if (comando == "O") {
-        idle = false;
-        mindinho.write(0);
-        anelar.write(0);
-        medio.write(0);
-        indicador.write(0);
-        dedao.write(0);
-        dedaoPuxo.write(0);
-        pulso.write(0);
-        cotovelo.write(0);
-    } else if (comando == "J") {
-        idle = false;
-        mindinho.write(0);
-        anelar.write(0);
-        medio.write(0);
-        indicador.write(0);
-        dedao.write(0);
-        dedaoPuxo.write(0);
-        pulso.write(0);
-        cotovelo.write(0);
-    } else if (comando == "Q") {
-        idle = false;
-        mindinho.write(0);
-        anelar.write(0);
-        medio.write(0);
-        indicador.write(0);
-        dedao.write(0);
-        dedaoPuxo.write(0);
-        pulso.write(0);
-        cotovelo.write(0);
-    } else if (comando == "R") {
-        idle = false;
-        mindinho.write(0);
-        anelar.write(0);
-        medio.write(0);
-        indicador.write(0);
-        dedao.write(0);
-        dedaoPuxo.write(0);
-        pulso.write(0);
-        cotovelo.write(0);
-    } else if (comando == "S") {
-        idle = false;
-        mindinho.write(0);
-        anelar.write(0);
-        medio.write(0);
-        indicador.write(0);
-        dedao.write(0);
-        dedaoPuxo.write(0);
-        pulso.write(0);
-        cotovelo.write(0);
-    } else if (comando == "T") {
-        idle = false;
-        mindinho.write(0);
-        anelar.write(0);
-        medio.write(0);
-        indicador.write(0);
-        dedao.write(0);
-        dedaoPuxo.write(0);
-        pulso.write(0);
-        cotovelo.write(0);
-    } else if (comando == "V") {
-        idle = false;
-        mindinho.write(0);
-        anelar.write(0);
-        medio.write(0);
-        indicador.write(0);
-        dedao.write(0);
-        dedaoPuxo.write(0);
-        pulso.write(0);
-        cotovelo.write(0);
-    } else if (comando == "W") {
-        idle = false;
-        mindinho.write(0);
-        anelar.write(0);
-        medio.write(0);
-        indicador.write(0);
-        dedao.write(0);
-        dedaoPuxo.write(0);
-        pulso.write(0);
-        cotovelo.write(0);
-    } else if (comando == "Y") {
-        idle = false;
-        mindinho.write(0);
-        anelar.write(0);
-        medio.write(0);
-        indicador.write(0);
-        dedao.write(0);
-        dedaoPuxo.write(0);
-        pulso.write(0);
-        cotovelo.write(0);
-    }
-    
-    // Expressões
-    else if (comando == "botaotail") {
-        idle = false;
-        mindinho.write(0);
-        anelar.write(0);
-        medio.write(0);
-        indicador.write(0);
-        dedao.write(0);
-        dedaoPuxo.write(0);
-        pulso.write(0);
-        cotovelo.write(0);
-    } else if (comando == "botaoriw") {
-        idle = false;
-        mindinho.write(0);
-        anelar.write(0);
-        medio.write(0);
-        indicador.write(0);
-        dedao.write(0);
-        dedaoPuxo.write(0);
-        pulso.write(0);
-        cotovelo.write(0);
-    } else if (comando == "botaoifrj") {
-        idle = false;
-        mindinho.write(0);
-        anelar.write(0);
-        medio.write(0);
-        indicador.write(0);
-        dedao.write(0);
-        dedaoPuxo.write(0);
-        pulso.write(0);
-        cotovelo.write(0);
-    } else if (comando == "botaopalmas") {
-        idle = false;
-        mindinho.write(0);
-        anelar.write(0);
-        medio.write(0);
-        indicador.write(0);
-        dedao.write(0);
-        dedaoPuxo.write(0);
-        pulso.write(0);
-        cotovelo.write(0);
+
+        delay(1000);
+
+        cotovelo.write(180);
+
+        idle = true;
     }
     
     // Jogo
@@ -352,6 +521,14 @@ void loop() {
         dedaoPuxo.write(180);
         pulso.write(0);
         cotovelo.write(180);
+
+        delay(500);
+
+        pulso.write(120);
+
+        delay(500);
+
+        pulso.write(0);
     } else if (comando == "TESOURA") {
         idle = false;
         mindinho.write(0);
