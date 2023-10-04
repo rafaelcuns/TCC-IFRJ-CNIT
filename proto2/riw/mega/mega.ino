@@ -33,7 +33,7 @@ void setup() {
 
     // Idle
     mindinho.write(180);
-    anelar.write(0);
+    anelar.write(180);
     medio.write(180);
     indicador.write(180);
     dedao.write(180);
@@ -53,7 +53,7 @@ void loop() {
     String comando = Serial.readStringUntil('\n');
 
     if (idle) {
-      if (distancia <= 5 && distancia != 0) {
+      if (distancia <= 10 && distancia != 0) {
         idle = false;
         // Cumprimento
         mindinho.write(0);
@@ -66,7 +66,7 @@ void loop() {
         dedao.write(0);
         dedaoPuxo.write(0);
 
-        delay(4000);
+        delay(3000);
 
         mindinho.write(180);
         anelar.write(180);
@@ -265,7 +265,7 @@ void loop() {
         dedaoPuxo.write(180);
     } else if (comando == "T") {
         idle = false;
-        dedao.write(180);
+        dedao.write(0);
         dedaoPuxo.write(0);
         delay(500);
         mindinho.write(180);
