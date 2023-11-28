@@ -1,6 +1,7 @@
 import serial # pySerial
 import pygame # Conexão com a placa Zero Delay
-import vlc # Player de video
+import vlc # Player de video - python-vlc
+from threading import Thread # Para loop infinito do video
 from time import sleep # Delay
 
 laires = serial.Serial("/dev/ttyUSBX", 115200) # ou "COMX", sendo X dependendo da porta
@@ -17,22 +18,32 @@ joystick.init()
 player = vlc.MediaPlayer() 
 player.set_fullscreen(True)
 
+def threadLoop():
+    def loop():
+        player.set_media(vlc.Media("loop.mp4"))
+        player.play()
+        sleep(2)
+        while player.is_playing():
+            sleep(0.1)
+        loop()
+    loop()
+
 def play(video): # O parâmetro video é o nome do arquivo
     player.set_media(vlc.Media(video + ".mp4")) 
     player.play()
-    sleep(1)
+    sleep(2)
     while player.is_playing():
-        sleep(1)
-    player.stop()
+        sleep(0.1)
 
-print("TAIL Inicado")
+Thread(target=threadLoop).start()
 pygame.init()
+print("TAIL Iniciado")
 while True:
     for event in pygame.event.get():
         if event.type == pygame.JOYBUTTONDOWN: # Espera o clique nos botões
             if event.dict['button'] == 0:
                 print('gira')
                 laires.write(b'gira')
-                play("contador")
+                play("placeholder")
             else:
                 print(event.dict['button'])
