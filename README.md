@@ -8,7 +8,7 @@ O Totem de Acessibilidade e Informação em Libras é um trabalho de conclusão 
 
 TAIL tem o objetivo de auxiliar os educadores no ensino de crianças e jovens nas escolas sobre o ensino da linguagem de sinais (libras), fazendo uso extremo da robótica com micro servos e impressão 3D.
 
-Feito pelos estudantes [João Pedro Viana](https://www.instagram.com/o_joaop3dro), [Cauã Lopes Pinto](https://www.instagram.com/caua_lp10), [ Caio Lopes Bragança](https://www.instagram.com/qcaiolopes), [Rafael Cunha Siqueira](https://www.instagram.com/rafaelcuns) e [Ryan Ferreira Costa](https://www.instagram.com/ryanfcosta).
+Feito pelos estudantes [João Pedro Viana](https://www.instagram.com/joao.vianas), [Cauã Lopes Pinto](https://www.instagram.com/caua_lp10), [ Caio Lopes Bragança](https://www.instagram.com/qcaiolopes), [Rafael Cunha Siqueira](https://www.instagram.com/rafaelcuns) e [Ryan Ferreira Costa](https://www.instagram.com/ryanfcosta).
 
 ### Linguagens utilizadas no decorrer do projeto:
 
