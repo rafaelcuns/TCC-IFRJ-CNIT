@@ -4,6 +4,8 @@ import vlc # Player de video - python-vlc
 from threading import Thread # Para loop infinito do video
 from time import sleep # Delay
 
+TEMPOLOOP = 6
+
 laires = serial.Serial("/dev/ttyUSBX", 115200) # ou "COMX", sendo X dependendo da porta
 
 pygame.joystick.init()
@@ -20,18 +22,18 @@ player.set_fullscreen(True)
 
 def threadLoop():
     def loop():
-        player.set_media(vlc.Media("loop.mp4"))
-        player.play()
-        sleep(2)
-        while player.is_playing():
-            sleep(0.1)
+        sleep(0.5)
+        if not(player.is_playing()):
+            player.set_media(vlc.Media("loop.mp4"))
+            player.play()
+            sleep(TEMPOLOOP)
         loop()
     loop()
 
 def play(video): # O parâmetro video é o nome do arquivo
     player.set_media(vlc.Media(video + ".mp4")) 
     player.play()
-    sleep(2)
+    sleep(4)
     while player.is_playing():
         sleep(0.1)
 
@@ -44,6 +46,6 @@ while True:
             if event.dict['button'] == 0:
                 print('gira')
                 laires.write(b'gira')
-                play("placeholder")
+                play("contador")
             else:
                 print(event.dict['button'])
