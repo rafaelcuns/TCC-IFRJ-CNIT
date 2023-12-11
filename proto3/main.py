@@ -44,8 +44,17 @@ while True:
     for event in pygame.event.get():
         if event.type == pygame.JOYBUTTONDOWN: # Espera o clique nos botões
             if event.dict['button'] == 0:
-                print('gira')
-                laires.write(b'gira')
+                print('auditorio')
+                laires.write(b'auditorio')
+                play("contador")
+            if event.dict['button'] == 1:
+                print('banheiro')
+                laires.write(b'banheiro')
+                play("contador")
+            if event.dict['button'] == 2:
+                print('secretaria')
+                laires.write(b'secretaria')
                 play("contador")
             else:
                 print(event.dict['button'])
+    print(laires.readline())

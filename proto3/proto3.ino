@@ -4,21 +4,46 @@
 #define AH 0
 
 Servo testeServo;
+Servo trapezioE;
+Servo trapezioD;
+Servo ombroE;
+Servo ombroD;
+Servo bicepsE;
+Servo bicepsD;
+Servo cotoveloE;
+Servo cotoveloD;
+Servo cabeca;
 
 void setup() {
     Serial.begin(115200);
     
-    testeServo.attach(22);
-    testeServo.write(0);
+    trapezioE.attach(2);
+    trapezioD.attach(3);
+    ombroE.attach(4);
+    ombroD.attach(5);
+    bicepsE.attach(6);
+    bicepsD.attach(7);
+    cotoveloE.attach(8);
+    cotoveloD.attach(9);
+    cabeca.attach(10);
+
+    testeServo.attach(11);
 }
 
 void loop() {
     String comando = Serial.readStringUntil('\n');
+    Serial.println(comando);
 
     if (comando == "gira") {
-        mover(testeServo, H, 2000);
-        delay(2000);
-        mover(testeServo, AH, 2000);
+
+    } else if (comando == "auditorio") {
+      
+    } else if (comando == "banheiro") {
+      mover(trapezioE, AH, 700);
+      mover(trapezioD, H, 700);
+      delay(2000);   
+    } else if (comando == "secretaria") {
+    
     }
 }
 
