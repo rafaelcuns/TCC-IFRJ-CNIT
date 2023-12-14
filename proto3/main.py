@@ -30,31 +30,39 @@ def threadLoop():
         loop()
     loop()
 
-def play(video): # O parâmetro video é o nome do arquivo
+def play(video = "escolhabotao"): # O parâmetro video é o nome do arquivo
+    global selection
     player.set_media(vlc.Media(video + ".mp4")) 
     player.play()
     sleep(4)
     while player.is_playing():
         sleep(0.1)
+    selection = False
 
 Thread(target=threadLoop).start()
 pygame.init()
 print("TAIL Iniciado")
+selection = False
 while True:
     for event in pygame.event.get():
         if event.type == pygame.JOYBUTTONDOWN: # Espera o clique nos botões
-            if event.dict['button'] == 0:
-                print('auditorio')
-                laires.write(b'auditorio')
-                play("contador")
-            if event.dict['button'] == 1:
-                print('banheiro')
-                laires.write(b'banheiro')
-                play("contador")
-            if event.dict['button'] == 2:
-                print('secretaria')
-                laires.write(b'secretaria')
-                play("contador")
-            else:
-                print(event.dict['button'])
+            if event.dict['button']:
+                if selection:
+                    if event.dict['button'] == 0:
+                        print('auditorio')
+                        laires.write(b'auditorio')
+                        play("auditorio")
+                    if event.dict['button'] == 1:
+                        print('banheiro')
+                        laires.write(b'banheiro')
+                        play("banheiro")
+                    if event.dict['button'] == 2:
+                        print('secretaria')
+                        laires.write(b'secretaria')
+                        play("secretaria")
+                    else:
+                        print(event.dict['button'])
+                else: 
+                    selection = True
+                    Thread(target=play).start()
     print(laires.readline())
