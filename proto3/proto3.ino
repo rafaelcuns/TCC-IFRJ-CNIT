@@ -3,7 +3,6 @@
 #define H 180
 #define AH 0
 
-Servo testeServo;
 Servo trapezioE;
 Servo trapezioD;
 Servo ombroE;
@@ -17,33 +16,48 @@ Servo cabeca;
 void setup() {
     Serial.begin(115200);
     
-    trapezioE.attach(2);
-    trapezioD.attach(3);
-    ombroE.attach(4);
-    ombroD.attach(5);
-    bicepsE.attach(6);
-    bicepsD.attach(7);
-    cotoveloE.attach(8);
-    cotoveloD.attach(9);
-    cabeca.attach(10);
-
-    testeServo.attach(11);
+    trapezioE.attach(2); //
+    trapezioD.attach(4); //
+    ombroE.attach(9); //
+    ombroD.attach(3); //
+    bicepsE.attach(7); //
+    bicepsD.attach(8); //
+    cotoveloE.attach(10);
+    cotoveloD.attach(6); //
+    cabeca.attach(5); //
 }
 
 void loop() {
     String comando = Serial.readStringUntil('\n');
     Serial.println(comando);
 
-    if (comando == "gira") {
-
-    } else if (comando == "auditorio") {
-      
+    if (comando == "auditorio") {
+      mover(bicepsE, H, 500);
+      mover(bicepsD, AH, 80);
+      delay(500);
+      mover(bicepsE, AH, 100);
+      mover(bicepsD, H, 80);
+      delay(500);
+      mover(bicepsE, H, 500);
+      mover(bicepsD, AH, 80);
+      delay(500);
+      mover(bicepsE, AH, 100);
+      mover(bicepsD, H, 80);
+      delay(500);
+      mover(bicepsE, H, 500);
+      mover(bicepsD, AH, 80);
+      delay(500);
+      mover(bicepsE, AH, 100);
+      mover(bicepsD, H, 80);
     } else if (comando == "banheiro") {
       mover(trapezioE, AH, 700);
       mover(trapezioD, H, 700);
-      delay(2000);   
+      delay(2000);
     } else if (comando == "secretaria") {
-    
+      mover(cabeca, AH, 100);
+      mover(ombroD, H, 500);
+      delay(250);
+      mover(cabeca, H, 70);
     }
 }
 
